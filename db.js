@@ -1,6 +1,6 @@
 let mysql = require('mysql');
 
-exports.db = (function(){
+let db = (function(){
     this.connection = mysql.createConnection({
         host     : 'localhost',
         user     : 'root',
@@ -21,3 +21,6 @@ exports.db = (function(){
 
     return this;
 })();
+
+exports.connection = db.connection;
+exports.query      = db.query;

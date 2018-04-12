@@ -1,6 +1,6 @@
 let express = require('express');
 let app     = express();
-let db      = require('./db.js').db;
+let db      = require('./db.js') ;
 
 app.get('/users/:id', function (req, res) {
     const sql = "SELECT * FROM users WHERE id = ?";
@@ -14,7 +14,7 @@ app.get('/users', function (req, res) {
     results.then(r => res.end( JSON.stringify(r) ));
 })
 
-let server = app.listen(80, function () {
+let server = app.listen(8081, function () {
 
   let host = server.address().address
   let port = server.address().port
