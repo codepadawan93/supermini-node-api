@@ -11,9 +11,8 @@ exports.db = (function(){
     this.connection.connect();
 
     this.query = function(str, ...params){
-        console.log(params);
         return new Promise(function(resolve, reject) {
-            this.connection.query(str, function (err, rows, fields) {
+            this.connection.query(str, params, function (err, rows, fields) {
                 if (err) throw err
                 resolve(rows);
             })

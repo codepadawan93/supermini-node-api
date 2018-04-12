@@ -3,8 +3,8 @@ let app     = express();
 let db      = require('./db.js').db;
 
 app.get('/users/:id', function (req, res) {
-    const sql = "SELECT * FROM users WHERE id = " + escape(req.params.id);
-    let results = db.query(sql);
+    const sql = "SELECT * FROM users WHERE id = ?";
+    let results = db.query(sql, escape(req.params.id));
     results.then(r => res.end( JSON.stringify(r) ));
  })
 
