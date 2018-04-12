@@ -1,12 +1,14 @@
 let mysql = require('mysql');
+let fs = require('fs');
+
 
 let db = (function(){
-    this.connection = mysql.createConnection({
-        host     : 'localhost',
-        user     : 'root',
-        password : '',
-        database : 'laratest'
-    });
+    
+    let config = JSON.parse( 
+        fs.readFileSync( __dirname + "/config/" + "db.json", 'utf8')
+    );
+    
+    this.connection = mysql.createConnection(config);
 
     this.connection.connect();
 
