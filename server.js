@@ -14,7 +14,7 @@ app.get('/users', function (req, res) {
     results.then(r => res.end( JSON.stringify(r) ));
 })
 
-let server = app.listen(8081, function () {
+let server = app.listen(80, function () {
 
   let host = server.address().address
   let port = server.address().port
