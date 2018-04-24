@@ -1,28 +1,19 @@
 let mysql = require('mysql');
 let fs = require('fs');
 
+let config = JSON.parse( 
+    fs.readFileSync( __dirname + "/config/" + "db.json", 'utf8')
+);
 
-let db = (function(){
-    
-    let config = JSON.parse( 
-        fs.readFileSync( __dirname + "/config/" + "db.json", 'utf8')
-    );
-    
-    this.connection = mysql.createConnection(config);
+let connection = mysql.createConnection(config);
 
-    this.connection.connect();
+exports.connection = connection.connect();
 
-    this.query = function(str, ...params){
-        return new Promise(function(resolve, reject) {
-            this.connection.query(str, params, function (err, rows, fields) {
-                if (err) throw err
-                resolve(rows);
-            })
-        });
-    }
-
-    return this;
-})();
-
-exports.connection = db.connection;
-exports.query      = db.query;
+exports.query = (function(str, ...params){
+    return new Promise(function(resolve, reject) {
+        connection.query(str, params, function (err, rows, fields) {
+        if (err) throw err
+            resolve(rows);
+        })
+    })
+});

@@ -20,6 +20,12 @@ app.get('/users/:limit/:offset', function (req, res) {
     results.then(r => res.end( JSON.stringify(r) ));
 })
 
+app.get('/posts', function (req, res) {
+    const sql = 'SELECT * FROM posts';
+    let results = db.query( sql );
+    results.then(r => res.end( JSON.stringify(r) ));
+})
+
 let server = app.listen(8081, function () {
 
   let host = server.address().address
