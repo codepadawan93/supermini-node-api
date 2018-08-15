@@ -1,19 +1,23 @@
-let mysql = require('mysql');
-let fs = require('fs');
+const mysql = require('mysql');
+const fs    = require('fs');
 
-let config = JSON.parse( 
+const config = JSON.parse( 
     fs.readFileSync( __dirname + "/config/" + "db.json", 'utf8')
 );
 
 let connection = mysql.createConnection(config);
 
-exports.connection = connection.connect();
+let db = {};
 
-exports.query = (function(str, ...params){
+db.connection = connection.connect();
+
+db.query = function(str, ...params){
     return new Promise(function(resolve, reject) {
         connection.query(str, params, function (err, rows, fields) {
         if (err) throw err
             resolve(rows);
         })
     })
-});
+};
+
+module.exports = db;
